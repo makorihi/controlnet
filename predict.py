@@ -34,7 +34,9 @@ class Predictor(BasePredictor):
     def setup(self):
         """Load the model into memory to make running multiple predictions efficient"""
         self.model = create_model('./models/cldm_v15.yaml').cuda()
-        self.model.load_state_dict(load_state_dict(get_state_dict_path(MODEL_TYPE), location='cuda'))
+        #state_dict_path = get_state_dict_path(MODEL_TYPE)
+        state_dict_path = './models/control_jama-ohxw_depth.pth'
+        self.model.load_state_dict(load_state_dict(state_dict_path, location='cuda'))
         self.ddim_sampler = DDIMSampler(self.model)
 
     def predict(
